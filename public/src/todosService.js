@@ -2,32 +2,33 @@ import axios from 'axios';
 
 const url = "http://localhost:5000/v1/todos/";
 
-class tasks {
-    static getPosts() {
+class todosService {
+    static getTodos() {
         return new Promise (async (resolve, reject) => {
             try {
                 const res = await axios.get(url);
-                const data= res.data.data;
-                resolve(data.map(task => ({
-                    ...task,
-                    createdAt: new Date(task.createdAt)
-                }))
-                );
+                const data = res.data.todos;
+                resolve(data);
             } catch (err) {
                 reject(err);
             }
         });
     }
 
-    static insertPost(text) {
+    static insertPost(todo) {
         return axios.post(url, {
-            text
+            name: todo.name,
+            description: todo.description
         });
     }
 
     static deletePost(id) {
         return axios.delete(`${url}${id}`);
     }
+
+    static editPost(id, text) {
+        return axios.put(`${url}${id}`, text);
+    }
 }
 
-export default tasks;
+export default todosService;

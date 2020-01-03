@@ -28,7 +28,7 @@ exports.getTodos = async (req, res, next) => {
         res.status(200).json({
             success: true,
             count: todos.length, 
-            data: todos
+            todos
         });
     } catch (err) {
         res.status(400).json({
