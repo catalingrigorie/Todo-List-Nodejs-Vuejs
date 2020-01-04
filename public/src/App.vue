@@ -24,21 +24,21 @@ export default {
             this.todos = await todosService.getTodos();
         },
         async deleteTodo(id) {
-          todosService.deletePost(id);
-          this.todos = await todosService.getTodos();
+            this.todos = await todosService.deletePost(id);
+            this.todos = await todosService.getTodos();
         }
     },
     components: {
         Grid,
-        createTodo
+        createTodo,
     },
     async created() {
-      try {
-        this.todos = await todosService.getTodos();
-      } catch (error) {
-        this.error = error.message;
-      }
-    },
+        try {
+            this.todos = await todosService.getTodos();
+        } catch (error) {
+            this.error = error.message;
+        }
+    }
 };
 </script>
 
@@ -47,8 +47,9 @@ export default {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 </style>

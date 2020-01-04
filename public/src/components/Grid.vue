@@ -1,26 +1,33 @@
 <template>
     <div class="container">
         <div class="todos-grid">
-            <todo
-                v-for="(todo) in todos"
-                :key="todo.id"
-                :id="todo._id"
-                @dblclick.native="deleteTodo($event)"
-            >
-                <template v-slot:todoName>
-                    {{ todo.name }}
-                </template>
-                <template v-slot:todoDesc>
-                    {{ todo.description }}
-                </template>
-            </todo>
+            <draggable v-model="todos" ghost-class="ghost">
+                <transition-group type="transition" name="flip">
+                    <todo
+                        v-for="todo in todos"
+                        :key="todo._id"
+                        :id="todo._id"
+                        @dblclick.native="deleteTodo($event)"
+                    >
+                        <template v-slot:todoName>
+                            {{ todo.name }}
+                        </template>
+                        <template v-slot:todoDesc>
+                            {{ todo.description }}
+                        </template>
+                        <!-- <template v-slot:todoDiff>
+                            {{ todo.priority }}
+                        </template> -->
+                    </todo>
+                </transition-group>
+            </draggable>
         </div>
     </div>
 </template>
 
 <script>
 import todo from "../components/todo";
-// import todosService from "../todosService";
+import draggable from 'vuedraggable'
 
 export default {
     name: "Grid",
@@ -31,20 +38,28 @@ export default {
         }
     },
     components: {
-        todo
+        todo,
+        draggable
     }
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 960px;
 }
 
-.todos-grid {
-    width: 50%;
-    height: auto;
+.sortable-drag {
+    opacity: 0;
+}
+
+.flip-move {
+    transition: transform 0.3s;
+}
+
+.ghost {
+    border-left: 6px solid rgb(0, 223, 254);
+    box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
+    opacity: .7;
 }
 </style>
