@@ -18,7 +18,8 @@ class todosService {
     static insertPost(todo) {
         return axios.post(url, {
             name: todo.name,
-            description: todo.description
+            description: todo.description,
+            priority: parseInt(todo.priority)
         });
     }
 

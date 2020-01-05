@@ -23,7 +23,7 @@ exports.createTodo = async (req, res, next) => {
  */
 exports.getTodos = async (req, res, next) => {
     try {
-        const todos = await Todo.find({});
+        const todos = await Todo.find({}).sort({_id: -1});
 
         res.status(200).json({
             success: true,

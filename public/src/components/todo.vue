@@ -1,29 +1,26 @@
 <template>
-    <div>
-        <div class="todo">
-            <div class="todo-check">
-                <label class="checkbox">
-                    <input type="checkbox" v-model="isChecked" />
-                    <span class="checkmark"></span>
-                </label>
+    <div class="todo">
+        <div class="todo-check">
+            <label class="checkbox">
+                <input type="checkbox" v-model="isChecked" />
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="wrapp">
+            <div class="todo-name" :class="{ completed: isChecked }">
+                <slot name="todoName"></slot>
             </div>
-            <div class="wrapp">
-                <div class="todo-name" :class="{ 'completed': isChecked }">
-                    <slot name="todoName"></slot>
-                </div>
-                <div class="todo-desc" :class="{ 'completed': isChecked }">
-                    <slot name="todoDesc"></slot>
-                </div>
-                <div class="todo-diff">
-                    <slot name="todoDiff"></slot>
-                </div>
+            <div class="todo-desc" :class="{ completed: isChecked }">
+                <slot name="todoDesc"></slot>
+            </div>
+            <div class="todo-diff">
+                <slot name="todoDiff"></slot>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
 export default {
     data() {
         return {
@@ -36,9 +33,24 @@ export default {
 <style lang="scss" scoped>
 .todo {
     display: flex;
-    background-color: aquamarine;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 1px rgba(145, 145, 145, 0.75);
     padding: 10px;
     margin: 5px;
+    min-height: 70px;
+
+    &.red {
+        background-color: #de6a6a;
+    }
+
+    &.yellow {
+        background-color: #dcd978;
+    }
+
+    &.green {
+        background-color: #64cea5;
+    }
 
     &-name {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -54,11 +66,17 @@ export default {
 
     &-desc {
         opacity: 0.7;
-        color: gray;
+        color: #35495e;
+        padding: 5px 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
         &.completed {
             text-decoration: line-through;
         }
+    }
+
+    &-check {
+        width: 40px;
     }
 
     .checkbox {
@@ -75,10 +93,10 @@ export default {
 
         .checkmark {
             position: absolute;
-            top: 17px;
-            left: -1px;
-            height: 25px;
-            width: 25px;
+            top: 22px;
+            left: 1px;
+            height: 27px;
+            width: 27px;
             background-color: #eee;
             border-radius: 50%;
 
@@ -103,7 +121,7 @@ export default {
 
             &:checked {
                 ~ .checkmark {
-                    background-color: #2196f3;
+                    background-color: #64cea5;
 
                     &:after {
                         display: block;

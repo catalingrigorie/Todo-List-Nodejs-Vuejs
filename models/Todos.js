@@ -10,8 +10,9 @@ const Todo = new mongoose.Schema({
         maxlength: 500
     },
     priority: {
-        type: String,
-        default: 'low'
+        type: Number,
+        enum: [1, 2, 3],
+        required: true
     },
     createdAT: {
         type: Date,

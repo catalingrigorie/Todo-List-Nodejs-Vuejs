@@ -7,6 +7,7 @@
                         v-for="todo in todos"
                         :key="todo._id"
                         :id="todo._id"
+                        :class="getPriority(todo)"
                         @dblclick.native="deleteTodo($event)"
                     >
                         <template v-slot:todoName>
@@ -27,7 +28,7 @@
 
 <script>
 import todo from "../components/todo";
-import draggable from 'vuedraggable'
+import draggable from "vuedraggable";
 
 export default {
     name: "Grid",
@@ -35,6 +36,25 @@ export default {
     methods: {
         deleteTodo(event) {
             this.$emit("deletedTodo", event.currentTarget.id);
+        },
+        getPriority(todo) {
+            let color;
+
+            switch (todo.priority) {
+                case 1:
+                    color = "red";
+                    break;
+                case 2:
+                    color = "yellow";
+                    break;
+                case 3:
+                    color = "green";
+                    break;
+                default:
+                    color = "green";
+                    break;
+            }
+            return color;
         }
     },
     components: {
@@ -45,10 +65,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-    width: 960px;
-}
-
 .sortable-drag {
     opacity: 0;
 }
@@ -58,8 +74,8 @@ export default {
 }
 
 .ghost {
-    border-left: 6px solid rgb(0, 223, 254);
+    border-left: 10px solid white;
     box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
-    opacity: .7;
+    opacity: 0.7;
 }
 </style>
